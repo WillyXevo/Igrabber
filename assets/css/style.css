@@ -1,0 +1,74 @@
+@font-face {
+    font-family: opfont;
+    src: url(../fonts/Billabong.ttf);
+}
+
+body{
+	background: #F0F0F3;
+}
+
+
+.navbar-main{
+	border-radius: 0;
+}
+
+.navbar-inverse{
+	background-color: #FFF;
+	border:none;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+.navbar-main>.container{
+	padding: 26px 20px;
+}
+
+.navbar-header{
+	width: 100%;
+}
+.navbar-header>img{
+	float: left;
+	width:40px;
+}
+.navbar-header>h2{
+	margin-left: 20px;
+	padding-left: 20px;
+	display: inline;
+	font-family: opfont;
+	font-size: 3em;
+	color: #231F20;
+	border-left: 2px solid #231F20; 
+}
+
+footer{
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	text-align: center;
+	border-top: 1px solid #231F20;
+	font-family:  opfont;
+}
+footer>.container{
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+ 	.navbar-header{
+ 		text-align: center;
+ 	}
+
+	.navbar-header>img{
+		
+		float: none;
+	}
+	.navbar-header>h2{
+	}
+	.input-group-lg>.form-control, .input-group-lg>.input-group-addon{
+		font-size: 2em;
+	}
+	.input-group-addon, .input-group-btn{
+		width: 3%;
+	}
+	.input-group-lg>.input-group-btn>.btn{
+		    padding: 10px 36px;
+	}
+}
+
