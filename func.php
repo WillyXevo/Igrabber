@@ -29,9 +29,17 @@ function fromig($url=''){
     preg_match($regexp, $data, $matches);
     $manage = json_decode(str_replace(";", "", $matches[1]));
     echo '<pre>';
-    print_r($matches);
-    print_r($manage);
+    echo htmlentities($data);
     echo '<hr>';
+    echo 'INFO<br>';
+    print_r($info);
+    echo '<hr>';
+    echo 'ERROR<br>';
+    print_r($error);
+    echo '<hr>';
+    print_r($matches);
+    echo '<hr>';
+    print_r($manage);
     echo '</pre>';
     if(empty($matches)){
         echo "<p class='lead' style='color:#F00'>Link tidak valid</p>";

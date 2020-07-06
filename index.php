@@ -1,3 +1,7 @@
+<?php
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: x-access-header, Authorization, Origin, X-Requested-With, Content-Type, Accept");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
