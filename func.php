@@ -28,6 +28,11 @@ function fromig($url=''){
     $regexp='/\<script type\="text\/javascript\">window\.\_sharedData \= (.*?)<\/script\>/s';
     preg_match($regexp, $data, $matches);
     $manage = json_decode(str_replace(";", "", $matches[1]));
+    echo '<pre>';
+    print_r($matches);
+    print_r($manage);
+    echo '<hr>';
+    echo '</pre>';
     if(empty($matches)){
         echo "<p class='lead' style='color:#F00'>Link tidak valid</p>";
         return;
