@@ -20,6 +20,15 @@ function fromig($url=''){
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_PROXY, null);
 
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    curl_setopt($ch, CURLINFO_HEADER_OUT, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER,
+    array(
+        "Upgrade-Insecure-Requests: 1",
+        "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36",
+        
+    ));
+
     $data = curl_exec($ch);
     $info = curl_getinfo($ch);
     $error = curl_error($ch);
@@ -29,8 +38,8 @@ function fromig($url=''){
     preg_match($regexp, $data, $matches);
     $manage = json_decode(str_replace(";", "", $matches[1]));
     echo '<pre>';
-    echo htmlentities($data);
-    echo '<hr>';
+    /*echo htmlentities($data);
+    echo '<hr>';*/
     echo 'INFO<br>';
     print_r($info);
     echo '<hr>';
