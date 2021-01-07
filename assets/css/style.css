@@ -5,31 +5,28 @@
 
 body{
 	background: #F0F0F3;
+	height: 100%;
 }
 
-
-.navbar-main{
-	border-radius: 0;
-}
-
-.navbar-inverse{
+.main-header{
+	position: relative;
+    min-height: 50px;
 	background-color: #FFF;
-	border:none;
     border-bottom: 1px solid #dbdbdb;
 }
 
-.navbar-main>.container{
+.main-header>.container{
 	padding: 26px 20px;
 }
 
-.navbar-header{
+.sub-main-header{
 	width: 100%;
 }
-.navbar-header>img{
+.sub-main-header>img{
 	float: left;
 	width:40px;
 }
-.navbar-header>h2{
+.sub-main-header>h2{
 	margin-left: 20px;
 	padding-left: 20px;
 	display: inline;
@@ -37,6 +34,22 @@ body{
 	font-size: 3em;
 	color: #231F20;
 	border-left: 2px solid #231F20; 
+}
+
+.navbar{
+	border-radius: 0;
+}
+
+.p-warning{
+	padding: 20px;
+}
+
+.container-fluid{
+	height: 100%;
+}
+.container-story{
+	height: 380px;
+	overflow-x: scroll;
 }
 
 footer{
