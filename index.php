@@ -67,6 +67,21 @@ header("Access-Control-Allow-Headers: x-access-header, Authorization, Origin, X-
             Igrabber | powered by <a href="http://heroku.com/" target="blank">heroku</a>
         </div>
     </footer>
+    <div class="modal fade" id="modalView" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Preview</h4>
+                </div>
+                <div class="modal-body modal-preview">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="assets/js/jquery.progressTimer.js"></script>
@@ -76,41 +91,64 @@ header("Access-Control-Allow-Headers: x-access-header, Authorization, Origin, X-
 
             $("#btnproses").click(function(){
                 var url = $("#url").val();
-                $(".prog-box").show();
-
-                var progress = $(".loading-progress").progressTimer({
-                    timeLimit: 240,
-                    onFinish: function () {
-                        //alert('completed!');
-                        $(".loading-progress").hide();
-                    }
-                });
-
-                $.ajax({
-                    url:"func.php?url="+url
-                }).error(function(){
-                    progress.progressTimer('error', {
-                        errorText:'ERROR!',
-                        onFinish:function(){
-                                alert('There was an error processing your information!');
-                        }
-                    });
-                }).done(function(result){
-                    console.log(result);
-                    $(".hasil_gen").html(result);
-                    $(".hasil_gen").append("<p class='lead'><a href='#' onclick='location.reload();return false;''>Donwload Again</a></p>");
-                    progress.progressTimer('complete');
-                    $("footer").hide();
-                });
+                get_post(url);
             });
 
             $("#frm").submit(function(e){
                 e.preEventDafault();
             });
-
-            
-
+            $('#modalView').on('hidden.bs.modal', function (e) {
+                $(".modal-preview").html("");
+            });
+            //$('#modalView').modal('show');
+            //get_post("https://www.instagram.com/p/CJgPb_8BZUY/?igshid=h2rn4jx1wb9l");
         });
+
+        function get_post(url) {
+            $(".prog-box").show();
+
+            var progress = $(".loading-progress").progressTimer({
+                timeLimit: 240,
+                onFinish: function () {
+                    //alert('completed!');
+                    $(".loading-progress").hide();
+                }
+            });
+
+            $.ajax({
+                url:"func.php?url="+url
+            }).error(function(){
+                progress.progressTimer('error', {
+                    errorText:'ERROR!',
+                    onFinish:function(){
+                            alert('There was an error processing your information!');
+                    }
+                });
+            }).done(function(result){
+                //console.log(result);
+                $(".hasil_gen").html(result);
+                $(".hasil_gen").append("<p class='lead'><a href='#' onclick='location.reload();return false;''>Donwload Again</a></p>");
+                progress.progressTimer('complete');
+                $("footer").hide();
+            });
+        }
+
+        function modal_view(ini) {
+            var src = $(ini).attr("data-href");
+            var type = $(ini).attr("data-type");
+            console.log(src);
+            console.log(type);
+            $('#modalView').modal('show');
+            var cont = "";
+            if(type){
+                cont = '<video controls width="100%">';
+                    cont += '<source type="video/mp4" src="'+src+'">'; 
+                cont += '</video>';
+            }else{
+                cont = '<img class="img-responsive" src="'+src+'" alt="preview">';
+            }
+            $(".modal-preview").html(cont);
+        }
     </script>
 </body>
 </html>

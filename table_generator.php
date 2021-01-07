@@ -21,12 +21,8 @@ class table_generator{
 	public function set_heading(){
 		$this->head ='<thead>
 	        <tr>
-	            <th rowspan="2">Name</th>
-	            <th colspan="2">Source</th>
-	        </tr>
-	        <tr>
-	            <th>Size</th>
-	            <th>Url</th>
+	            <th>Type</th>
+	            <th>Source</th>
 	        </tr>
 	    </thead>';
 	    return $this->head;
@@ -53,6 +49,21 @@ class table_generator{
 				$ret .= "<td><a href=\"$v[url]\" class=\"btn btn-lg btn-success\" target=\"blank\">visit</a></td>";
 				$ret .= '</tr>';
 			}
+		array_push($this->row, $ret);
+	}
+
+	public function add_row2($row){
+		$ret = '<tr>';
+		$ret .= "<td>$row[name]</td>";
+		$ret .= "<td>$row[data]</td>";
+			/*foreach ($row['data'] as $k => $v) {
+				if($k>0){
+					$ret .= '<tr>';
+				}
+				$ret .= "<td>$v[size]</td>";
+				$ret .= "<td><a href=\"$v[url]\" class=\"btn btn-lg btn-success\" target=\"blank\">visit</a></td>";
+				$ret .= '</tr>';
+			}*/
 		array_push($this->row, $ret);
 	}
 
