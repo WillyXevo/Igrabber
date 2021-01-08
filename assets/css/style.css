@@ -48,8 +48,22 @@ body{
 	height: 100%;
 }
 .container-story{
-	height: 380px;
-	overflow-x: scroll;
+	/*height: 380px;
+	overflow-x: scroll;*/
+	margin-bottom: 200px;
+}
+
+.ajax_loading{
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.5);
+	text-align: center;
+	padding-top: 100px;
+	z-index: 999;
 }
 
 footer{

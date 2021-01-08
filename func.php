@@ -3,32 +3,97 @@
 
 require('simplehtmldom/simple_html_dom.php');
 require('table_generator.php');
-
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: x-access-header, Authorization, Origin, X-Requested-With, Content-Type, Accept");
-
+require_once("config.php");
 
 if(isset($_GET['url'])){
     echo getig($_GET['url']);
-    //echo fromig($_GET['url']);
+}
+
+if(isset($_GET['gs'])){
+    echo getgs($_GET['gs']);
+}
+
+if(isset($_GET['gh'])){
+    echo getgh($_GET['gh']);
 }
 
 function getig($url=''){
     ///get shortcode
     $a = explode("/", $url);
     $shortcode = $a[4];
-    $api = "https://apigrabber.herokuapp.com/gp";
-    $json = json_decode(file_get_contents("$api/$shortcode"),true);
+    $api = $GLOBALS['api']."gp";
+    $fgc = @file_get_contents("$api/$shortcode");
+    if($fgc === FALSE){
+        echo "<p class='lead' style='color:#F00'>Error!</p>";
+        return;
+    }
+    $json = json_decode($fgc,true);
     if(!is_array($json)){
-        echo "<p class='lead' style='color:#F00'>Link tidak valid</p>";
+        echo "<p class='lead' style='color:#F00'>url doesn't valid</p>";
         return;
     }else{
         $tab = new table_generator();
         $tab->init('table table-striped table-bordered', array('style' => 'width:100%;'));
         foreach ($json as $k => $v) {
             $btn_view = '<button type="button" data-href="'.$v['url'].'" data-type="'.$v['is_video'].'" class="btn btn-warning" onclick="modal_view(this)" >View</button>';
-            $btn_download = '<a href="'.$v['url'].'" class="btn btn-success" tagget="blank">Download</a>';
-            $tab->add_row2(array("name" => ($v['is_video']?"Video":"Image"), "data" => $btn_view.'&nbsp;'.$btn_download));
+            $btn_download = '<a href="'.$v['url'].'" class="btn btn-success" target="blank">Download</a>';
+            $tab->add_row2(array("name" => ($v['is_video']=="true"?"Video":"Image"), "data" => $btn_view.'&nbsp;'.$btn_download));
+        }
+        return $tab->generate();
+    }   
+}
+
+function getgs($url=''){
+    /*$uname = isset($_COOKIE['uname'])?$_COOKIE['uname']:'';
+    $pass= isset($_COOKIE['pass'])?$_COOKIE['pass']:'';
+    if($uname=="" || $pass==""){
+        echo "<p class='lead' style='color:#F00'>Error!</p>";
+        return;
+    }
+    $uname = e_url($uname);
+    $pass = e_url($pass);
+    echo "$uname <br> $pass";*/
+    $api = $GLOBALS['api']."gs";
+    $fgc = @file_get_contents("$api/$url");
+    if($fgc === FALSE){
+        echo "<p class='lead' style='color:#F00'>Error!</p>";
+        return;
+    }
+    //echo $fgc;
+    $json = json_decode($fgc,true);
+    if(!is_array($json)){
+        echo "<p class='lead' style='color:#F00'>User not found!</p>";
+        return;
+    }else{
+        $tab = new table_generator();
+        $tab->init('table table-striped table-bordered', array('style' => 'width:100%;'));
+        foreach ($json as $k => $v) {
+            $btn_view = '<button type="button" data-href="'.$v['url'].'" data-type="'.$v['is_video'].'" class="btn btn-warning" onclick="modal_view(this)" >View</button>';
+            $btn_download = '<a href="'.$v['url'].'" class="btn btn-success" target="blank">Download</a>';
+            $tab->add_row2(array("name" => ($v['is_video']=="true"?"Video":"Image"), "data" => $btn_view.'&nbsp;'.$btn_download));
+        }
+        return $tab->generate();
+    }   
+}
+function getgh($url=''){
+    $api = $GLOBALS['api']."gh";
+    $fgc = @file_get_contents("$api/$url");
+    if($fgc === FALSE){
+        echo "<p class='lead' style='color:#F00'>Error!</p>";
+        return;
+    }
+    //echo $fgc;
+    $json = json_decode($fgc,true);
+    if(!is_array($json)){
+        echo "<p class='lead' style='color:#F00'>User not found!</p>";
+        return;
+    }else{
+        $tab = new table_generator();
+        $tab->init('table table-striped table-bordered', array('style' => 'width:100%;'));
+        foreach ($json as $k => $v) {
+            $btn_view = '<button type="button" data-href="'.$v['url'].'" data-type="'.$v['is_video'].'" class="btn btn-warning" onclick="modal_view(this)" >View</button>';
+            $btn_download = '<a href="'.$v['url'].'" class="btn btn-success" target="blank">Download</a>';
+            $tab->add_row2(array("name" => ($v['is_video']=="true"?"Video":"Image"), "data" => $btn_view.'&nbsp;'.$btn_download));
         }
         return $tab->generate();
     }   

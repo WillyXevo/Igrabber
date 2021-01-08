@@ -1,6 +1,5 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: x-access-header, Authorization, Origin, X-Requested-With, Content-Type, Accept");
+    require_once("config.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,6 +24,9 @@ header("Access-Control-Allow-Headers: x-access-header, Authorization, Origin, X-
     <script src="assets/js/jquery.min.js"></script>
 </head>
 <body>
+    <div class="ajax_loading">
+        <img src="assets/img/loading_world.svg" alt="loading">
+    </div>
     <div class="main-header">
         <div class="container">
             <div class="sub-main-header">
@@ -52,6 +54,7 @@ header("Access-Control-Allow-Headers: x-access-header, Authorization, Origin, X-
                 <ul class="nav navbar-nav">
                     <li <?= !isset($_GET['p'])?'class="active"':''; ?> ><a href="index.php">Post <span class="sr-only">(current)</span></a></li>
                     <li <?= isset($_GET['p']) && $_GET['p']=='story'?'class="active"':''; ?> ><a href="index.php?p=story">Story</a></li>
+                    <li <?= isset($_GET['p']) && $_GET['p']=='highlight'?'class="active"':''; ?> ><a href="index.php?p=highlight">Highlight</a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
@@ -63,6 +66,8 @@ header("Access-Control-Allow-Headers: x-access-header, Authorization, Origin, X-
         if(isset($_GET['p'])){
             if($_GET['p']=='story'){
                 include 'story.php';
+            }else if($_GET['p']=='highlight'){
+                include 'highlight.php';
             }
         }else{
             include 'post.php';
@@ -93,6 +98,12 @@ header("Access-Control-Allow-Headers: x-access-header, Authorization, Origin, X-
 
     <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="assets/js/jquery.progressTimer.js"></script>
-    
+    <script type="text/javascript">
+        $(document).ready(function(){
+            setTimeout(function(){
+                $(".alert-dis").hide(100);
+            },3000);  
+        });
+    </script>
 </body>
 </html>
