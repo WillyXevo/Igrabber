@@ -69,6 +69,8 @@
             }else if($_GET['p']=='highlight'){
                 include 'highlight.php';
             }
+        }else if(isset($_GET['sht'])){
+            include 'view.php';
         }else{
             include 'post.php';
         }
@@ -90,6 +92,7 @@
                 <div class="modal-body modal-preview">
                 </div>
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-warning btn-copy-link">Copy Share Link</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -98,12 +101,10 @@
 
     <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="assets/js/jquery.progressTimer.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script type="text/javascript" src="assets/js/main.js?<?= time(); ?>"></script>
     <script type="text/javascript">
-        $(document).ready(function(){
-            setTimeout(function(){
-                $(".alert-dis").hide(100);
-            },3000);  
-        });
+       
     </script>
 </body>
 </html>

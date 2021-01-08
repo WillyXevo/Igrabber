@@ -35,11 +35,13 @@ function getig($url=''){
         $tab = new table_generator();
         $tab->init('table table-striped table-bordered', array('style' => 'width:100%;'));
         foreach ($json as $k => $v) {
-            $btn_view = '<button type="button" data-href="'.$v['url'].'" data-type="'.$v['is_video'].'" class="btn btn-warning" onclick="modal_view(this)" >View</button>';
+            $btn_view = '<button type="button" data-href="'.$v['url'].'" data-type="'.$v['is_video'].'" data-shr="post" data-code="'.$shortcode.'" class="btn btn-warning" onclick="modal_view(this)" >View</button>';
             $btn_download = '<a href="'.$v['url'].'" class="btn btn-success" target="blank">Download</a>';
             $tab->add_row2(array("name" => ($v['is_video']=="true"?"Video":"Image"), "data" => $btn_view.'&nbsp;'.$btn_download));
         }
-        return $tab->generate();
+
+        $shr_btn = '<button type="button" class="btn btn-success" onclick="share_post(\''.$shortcode.'\')" ><i class="fa fa-clipboard" aria-hidden="true"></i>&nbsp;Copy Share Link</buton>';
+        return $tab->generate().$shr_btn;
     }   
 }
 
@@ -68,7 +70,7 @@ function getgs($url=''){
         $tab = new table_generator();
         $tab->init('table table-striped table-bordered', array('style' => 'width:100%;'));
         foreach ($json as $k => $v) {
-            $btn_view = '<button type="button" data-href="'.$v['url'].'" data-type="'.$v['is_video'].'" class="btn btn-warning" onclick="modal_view(this)" >View</button>';
+            $btn_view = '<button type="button" data-href="'.$v['url'].'" data-type="'.$v['is_video'].'" data-shr="story" class="btn btn-warning" onclick="modal_view(this)" >View</button>';
             $btn_download = '<a href="'.$v['url'].'" class="btn btn-success" target="blank">Download</a>';
             $tab->add_row2(array("name" => ($v['is_video']=="true"?"Video":"Image"), "data" => $btn_view.'&nbsp;'.$btn_download));
         }
@@ -91,7 +93,7 @@ function getgh($url=''){
         $tab = new table_generator();
         $tab->init('table table-striped table-bordered', array('style' => 'width:100%;'));
         foreach ($json as $k => $v) {
-            $btn_view = '<button type="button" data-href="'.$v['url'].'" data-type="'.$v['is_video'].'" class="btn btn-warning" onclick="modal_view(this)" >View</button>';
+            $btn_view = '<button type="button" data-href="'.$v['url'].'" data-type="'.$v['is_video'].'" data-shr="highlight" class="btn btn-warning" onclick="modal_view(this)" >View</button>';
             $btn_download = '<a href="'.$v['url'].'" class="btn btn-success" target="blank">Download</a>';
             $tab->add_row2(array("name" => ($v['is_video']=="true"?"Video":"Image"), "data" => $btn_view.'&nbsp;'.$btn_download));
         }
