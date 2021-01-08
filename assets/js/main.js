@@ -12,8 +12,9 @@ $(document).ready(function(){
         var ty = $("#type_shr").val();
         var va = encodeURIComponent($("#val_shr").val());
         var share_link = base_url+"/index.php?sht="+ty+"&va="+va;
-        console.log(share_link);
+        
         copyTextToClipboard(share_link);
+        prompt ("Copy link, then click OK.", share_link);
     });
 
 });
@@ -121,6 +122,7 @@ function copyTextToClipboard(text) {
     var successful = document.execCommand('copy');
     var msg = successful ? 'successful' : 'unsuccessful';
     console.log('Copying text command was ' + msg);
+    console.log('Copying text is ' + textArea.value);
     
   } catch (err) {
     console.log('Oops, unable to copy');
