@@ -13,6 +13,7 @@ $(document).ready(function(){
         var va = encodeURIComponent($("#val_shr").val());
         var share_link = base_url+"/index.php?sht="+ty+"&va="+va;
         console.log(share_link);
+        copyTextToClipboard(share_link);
     });
 
 });
