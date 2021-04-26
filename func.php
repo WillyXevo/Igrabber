@@ -6,7 +6,12 @@ require('table_generator.php');
 require_once("config.php");
 
 if(isset($_GET['url'])){
-    echo getig($_GET['url']);
+    $gr =  getig($_GET['url']);
+    if($gr=="<p class='lead' style='color:#F00'>Error!</p>" || $gr=="<p class='lead' style='color:#F00'>url doesn't valid</p>" ){
+        echo fromig($_GET['url']);
+    }else{
+        echo $gr;
+    }
 }
 
 if(isset($_GET['gs'])){
@@ -24,13 +29,12 @@ function getig($url=''){
     $api = $GLOBALS['api']."gp";
     $fgc = @file_get_contents("$api/$shortcode");
     if($fgc === FALSE){
-        echo "<p class='lead' style='color:#F00'>Error!</p>";
-        return;
+        return "<p class='lead' style='color:#F00'>Error!</p>";
     }
     $json = json_decode($fgc,true);
     if(!is_array($json)){
-        echo "<p class='lead' style='color:#F00'>url doesn't valid</p>";
-        return;
+        //echo ;
+        return "<p class='lead' style='color:#F00'>url doesn't valid</p>";
     }else{
         $tab = new table_generator();
         $tab->init('table table-striped table-bordered', array('style' => 'width:100%;'));
@@ -126,9 +130,7 @@ function fromig($url=''){
     $regexp='/\<script type\="text\/javascript\">window\.\_sharedData \= (.*?)<\/script\>/s';
     preg_match($regexp, $data, $matches);
     $manage = json_decode(str_replace(";", "", $matches[1]));
-    echo '<pre>';
-    /*echo htmlentities($data);
-    echo '<hr>';*/
+    /*echo '<pre>';
     echo 'INFO<br>';
     print_r($info);
     echo '<hr>';
@@ -138,7 +140,7 @@ function fromig($url=''){
     print_r($matches);
     echo '<hr>';
     print_r($manage);
-    echo '</pre>';
+    echo '</pre>';*/
     if(empty($matches)){
         echo "<p class='lead' style='color:#F00'>Link tidak valid</p>";
         return;
