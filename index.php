@@ -68,6 +68,8 @@
                 include 'story.php';
             }else if($_GET['p']=='highlight'){
                 include 'highlight.php';
+            }else if($_GET['p']=='debug'){
+                include 'debug.php';
             }
         }else if(isset($_GET['sht'])){
             include 'view.php';

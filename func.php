@@ -26,6 +26,7 @@ function getig($url=''){
     ///get shortcode
     $a = explode("/", $url);
     $shortcode = $a[4];
+    echo $shortcode;
     $api = $GLOBALS['api']."gp";
     $fgc = @file_get_contents("$api/$shortcode");
     if($fgc === FALSE){
