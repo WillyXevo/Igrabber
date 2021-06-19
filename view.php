@@ -18,25 +18,25 @@ require_once("config.php");
 if(isset($_GET['sht'])){
 	$ty = $_GET['sht'];
 	$val = $_GET['va'];
-	if($ty=="post"){
-		$api = $GLOBALS['api']."gp";
-	    $fgc = @file_get_contents("$api/$val");
-	    if($fgc === FALSE){
-	        echo "<p class='lead' style='color:#F00'>Error!</p>";
-	    }else{
-		    $json = json_decode($fgc,true);
-		    if(!is_array($json)){
-		        echo "<p class='lead' style='color:#F00'>url doesn't valid</p>";
-		    }else{
-		        foreach ($json as $k => $v) {
-		            ttype($v);
-		        }
-		    }   
-	    }
+	$api = $GLOBALS['api']."gp";
+    $fgc = @file_get_contents("$api/$val");
+	if($fgc === FALSE){
+		echo "<p class='lead' style='color:#F00'>Error!</p>";
 	}else{
-		$v = ["is_video"=>$ty, "url"=>urldecode($val)];
-		ttype($v);
-
+		$json = json_decode($fgc,true);
+	    if(!is_array($json)){
+	        echo "<p class='lead' style='color:#F00'>url doesn't valid</p>";
+	    }else{
+	        foreach ($json as $k => $v) {
+	            ttype($v);
+	        }
+	    }
+		/*if($ty=="post"){
+		       
+		}else{
+			$v = ["is_video"=>$ty, "url"=>urldecode($val)];
+			ttype($v);
+		}*/
 	}
 }
 
@@ -50,14 +50,20 @@ function ttype($v){
     }
 }
 
-function gen_video($src){
-	$ret = '<video width="100%" controls="">';
-	$ret .= '<source type="video/mp4" src="'.$src.'">';
+function gen_video($lk){
+	$lk = e_url($lk);
+	$src = "video.php?url=".$lk;
+
+	$ret = '<video width="100%" controls src="'.$src.'">';
+	//$ret .= '<source type="video/mp4" >';
 	$ret .= '</video>';
 	return $ret;
 }
 function gen_img($src){
-	$ret = '<img class="img-responsive" src="'.$src.'" alt="image">';
+	$a = file_get_contents($src);
+    $src =  base64_encode($a);
+    //echo "<img class=\"img-responsive\" src=\"data:image/png;base64, $src\" >";
+	$ret = '<img class="img-responsive" src="data:image/png;base64, '.$src.'" alt="image">';
 	return $ret;
 }
 
